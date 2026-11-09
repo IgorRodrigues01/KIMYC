@@ -6,3 +6,8 @@ body {
 navegation{
     color: #C400FF;
 }
+logo{
+    display: flex;
+    height: 10px;
+    padding: 10px;
+}
