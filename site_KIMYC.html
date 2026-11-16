@@ -3,40 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ideia site KIMYC</title>
-    <link rel="stylesheet" href="style.css">
+    <title>KIMYC | Consultoria e Presença Digital</title>
+    <!-- Fonte moderna do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-    <header>
-        <nav id="navegador">
-            <ul>
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#sobre">SOBRE</a></li>
-                <li><a href="#contato">CONTATO</a></li>
-            </ul>
-        </nav>
+    <!-- Cabeçalho Fixo / Navegação -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo-wrapper">
+                <img src="./logo_png_kimyc.png" alt="Logo da KIMYC" id="logo">
+                <span class="brand-name">KIMYC</span>
+            </div>
+            <nav id="navegador">
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#sobre">Quem Somos</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#contato" class="btn-nav">Fale Conosco</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <img src="./logo_png_kimyc.png" alt="Logo do site" id="logo">
-        <h1>Meu Site</h1>
-
-        <section id="home">
-            <h2>Bem vindo ao site!</h2>
+        <!-- Seção Hero (Impacto Inicial) -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h1>Transforme a Presença Digital da sua Empresa</h1>
+                <p>Ajudamos negócios tradicionais a conquistarem autoridade online, atraírem mais clientes e escalarem vendas através de estratégias inteligentes de TI.</p>
+                <a href="#contato" class="btn-primary">Solicite uma Análise Gratuita</a>
+            </div>
         </section>
 
-        <section id="sobre">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita reprehenderit natus tem nesciunt, provident quaerat excepturi vitae saepe libero error assumenda, facilis ea?</p>
+        <!-- Seção Sobre / Proposta de Valor -->
+        <section id="sobre" class="section sobre">
+            <div class="container">
+                <h2>Por que a KIMYC?</h2>
+                <p class="subtitle">Muitas empresas perdem clientes diariamente por não aparecem onde o público procura: na internet.</p>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Diagnóstico Preciso</h3>
+                        <p>Identificamos os pontos fracos da sua empresa no ambiente digital e criamos um plano sob medida.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Soluções Práticas</h3>
+                        <p>Desenvolvemos desde a criação de sites profissionais até otimização de redes e tráfego local.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Retorno Garantido</h3>
+                        <p>Foco em resultados práticos: mais visibilidade, mais contatos e conversão de novos clientes.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="MENU">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil fugit obcaecati eveniet quibusdam suscipit non dolorem, magni ullam mollitia illum sapiente! Repellendus placeat a quam dolore commodi fugit reprehenderit asperiores?</p>
+        <!-- Seção de Serviços -->
+        <section id="servicos" class="section servicos">
+            <div class="container">
+                <h2>Nossas Soluções</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>🌐 Criação de Sites & Landing Pages</h3>
+                        <p>Sua empresa aberta 24h por dia na internet, com design profissional e focada em converter visitantes em clientes.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>📍 Google Meu Negócio</h3>
+                        <p>Faça sua empresa aparecer no topo do Google Maps quando buscarem pelos seus produtos ou serviços na região.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>⚙️ Otimização de Processos (TI)</h3>
+                        <p>Organize sua infraestrutura tecnológica interna para ganhar eficiência operacional e segurança.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Contato -->
+        <section id="contato" class="section contato">
+            <div class="container">
+                <h2>Pronto para crescer no digital?</h2>
+                <p>Entre em contato com nossa equipe e descubra como podemos alavancar o seu negócio.</p>
+                <form class="contact-form" action="#" method="POST">
+                    <input type="text" placeholder="Seu Nome / Nome da Empresa" required>
+                    <input type="email" placeholder="Seu E-mail Comercial" required>
+                    <input type="tel" placeholder="Telefone / WhatsApp" required>
+                    <textarea placeholder="Conte um pouco sobre o seu desafio digital..." rows="4" required></textarea>
+                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
         </section>
     </main>
 
     <footer id="footer">
-        <p>© 2026 Meu Site. Todos os direitos reservados.</p>
+        <div class="container footer-content">
+            <p>© 2026 KIMYC Consultoria de TI. Todos os direitos reservados.</p>
+            <p>Projeto de TCC - Consultoria focada em empresas com baixa presença digital.</p>
+        </div>
     </footer>
 
     <script src="./main.js"></script>

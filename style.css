@@ -1,13 +1,180 @@
+/* --- CONFIGURAÇÕES GERAIS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color:#4B767B;
-    color: #FFFFFF; 
-    
+    background-color: #4B767B;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
 }
-navegation{
-    color: #36D67A;
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
 }
-logo{
+
+/* --- CABEÇALHO E NAVEGAÇÃO --- */
+.header {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
     display: flex;
-    height: 10px;
-    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;''
+    gap: 10px;
+}
+
+#logo {
+    height: 40px; /* Ajuste a altura ideal para a sua logo */
+    width: auto;
+}
+
+.brand-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#navegador ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#navegador a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+#navegador a:hover {
+    color: #36D67A; /* Detalhe verde elegante ao passar o mouse */
+}
+
+.btn-nav {
+    background-color: #36D67A;
+    color: #FFFFFF !important;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.btn-nav:hover {
+    opacity: 0.9;
+}
+
+/* --- SEÇÃO HERO (INÍCIO) --- */
+.hero {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background-color: #36D67A;
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #2eb264;
+}
+
+/* --- SEÇÕES E CARDS --- */
+.section {
+    padding: 60px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+.cards-grid, .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card, .service-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card h3, .service-card h3 {
+    color: #36D67A;
+    margin-bottom: 15px;
+}
+
+/* --- FORMULÁRIO DE CONTATO --- */
+.contato form {
+    max-width: 600px;
+    margin: 30px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contato input, .contato textarea {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+    font-family: inherit;
+}
+
+.contato input::placeholder, .contato textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* --- RODAPÉ --- */
+#footer {
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
