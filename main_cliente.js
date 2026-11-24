@@ -427,9 +427,10 @@ navLinks.forEach((btn) => {
     state.filterType = btn.dataset.filterType;
     state.filterValue = btn.dataset.filterValue;
     state.curator = "all";
-    curationPills.forEach((p) =>
-      p.classList.toggle("active", p.dataset.curator === "all")
-    );
+    curationPills.forEach((p) => p.classList.toggle("active", p.dataset.curator === "all"));
+
+    catalogHeading.textContent =
+      btn.textContent === "Início" ? "Todos os Discos em Estoque" : btn.textContent;
 
     renderCatalog();
   });
@@ -439,125 +440,171 @@ curationPills.forEach((pill) => {
   pill.addEventListener("click", () => {
     curationPills.forEach((p) => p.classList.remove("active"));
     pill.classList.add("active");
+
     state.curator = pill.dataset.curator;
+    state.filterType = "all";
+    state.filterValue = "all";
+    navLinks.forEach((b) => b.classList.toggle("active", b.dataset.filterType === "all"));
+
+    catalogHeading.textContent =
+      pill.dataset.curator === "all" ? "Todos os Discos em Estoque" : pill.textContent;
+
     renderCatalog();
   });
 });
 
-searchInput.addEventListener("input", (event) => {
-  state.search = event.target.value;
+searchInput.addEventListener("input", (e) => {
+  state.search = e.target.value;
   renderCatalog();
 });
 
-sortSelect.addEventListener("change", (event) => {
-  state.sort = event.target.value;
+sortSelect.addEventListener("change", (e) => {
+  state.sort = e.target.value;
   renderCatalog();
-});
-
-recordsGrid.addEventListener("click", (event) => {
-  const button = event.target.closest(".add-to-crate-btn");
-  if (button) addToCrate(button.dataset.id);
-});
-
-crateItemsContainer.addEventListener("click", (event) => {
-  const button = event.target.closest(".remove-item-btn");
-  if (!button) return;
-
-  removeFromCrate(Number(button.dataset.index));
-});
-
-openCrateBtn.addEventListener("click", openCrateDrawer);
-closeCrateBtn.addEventListener("click", closeCrateDrawer);
-drawerBackdrop.addEventListener("click", closeCrateDrawer);
-
-document.querySelector(".btn-add-featured").addEventListener("click", (event) => {
-  addToCrate(event.currentTarget.dataset.id);
 });
 
 document.getElementById("btnFilterUsedHero").addEventListener("click", () => {
   state.filterType = "condition";
   state.filterValue = "usado";
   state.curator = "all";
-
-  navLinks.forEach((btn) => {
-    btn.classList.toggle(
-      "active",
-      btn.dataset.filterType === "condition" &&
-        btn.dataset.filterValue === "usado"
-    );
-  });
-  curationPills.forEach((pill) =>
-    pill.classList.toggle("active", pill.dataset.curator === "all")
-  );
+  catalogHeading.textContent = "Garimpos Usados";
+  navLinks.forEach((b) => b.classList.toggle("active", b.dataset.filterValue === "usado"));
   renderCatalog();
   document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
 });
 
-function resetFilters() {
+function resetAllFilters() {
   state.filterType = "all";
   state.filterValue = "all";
   state.curator = "all";
   state.search = "";
-  state.sort = "featured";
-
   searchInput.value = "";
-  sortSelect.value = "featured";
-  navLinks.forEach((btn) =>
-    btn.classList.toggle("active", btn.dataset.filterType === "all")
-  );
-  curationPills.forEach((pill) =>
-    pill.classList.toggle("active", pill.dataset.curator === "all")
-  );
+  catalogHeading.textContent = "Todos os Discos em Estoque";
+  navLinks.forEach((b) => b.classList.toggle("active", b.dataset.filterType === "all"));
+  curationPills.forEach((p) => p.classList.toggle("active", p.dataset.curator === "all"));
   renderCatalog();
 }
 
-document
-  .getElementById("resetFiltersBrand")
-  .addEventListener("click", (event) => {
-    event.preventDefault();
-    resetFilters();
-  });
+document.getElementById("clearAllFiltersBtn").addEventListener("click", resetAllFilters);
+document.getElementById("resetFiltersBrand").addEventListener("click", (e) => {
+  e.preventDefault();
+  resetAllFilters();
+});
 
-document
-  .getElementById("clearAllFiltersBtn")
-  .addEventListener("click", resetFilters);
+/* Delegação de eventos para adicionar/remover discos */
+document.addEventListener("click", (e) => {
+  const addBtn = e.target.closest(".add-to-crate-btn, .btn-add-featured");
+  if (addBtn) {
+    addToCrate(addBtn.dataset.id);
+  }
 
-document
-  .getElementById("newsletterForm")
-  .addEventListener("submit", (event) => {
-    event.preventDefault();
-    const emailInput = document.getElementById("newsletterEmail");
-    const feedback = document.getElementById("newsletterFeedback");
-    feedback.textContent = `Obrigado! Avisaremos ${emailInput.value} sobre os próximos lotes.`;
-    event.currentTarget.reset();
-  });
+  const removeBtn = e.target.closest(".remove-item-btn");
+  if (removeBtn) {
+    removeFromCrate(Number(removeBtn.dataset.index));
+  }
+});
+
+openCrateBtn.addEventListener("click", openCrateDrawer);
+closeCrateBtn.addEventListener("click", closeCrateDrawer);
+drawerBackdrop.addEventListener("click", closeCrateDrawer);
 
 document.getElementById("checkoutBtn").addEventListener("click", () => {
   if (state.crate.length === 0) {
-    showToast("Adicione pelo menos um disco ao caixote.");
+    showToast("Adicione pelo menos um disco antes de finalizar.");
     return;
   }
-
-  const total = state.crate.reduce((sum, item) => sum + item.price, 0);
-  const itens = state.crate
-    .map((item, index) => `${index + 1}. ${item.title} - ${formatBRL(item.price)}`)
-    .join("\n");
-  const message =
-    `Olá! Gostaria de finalizar meu pedido:\n\n${itens}\n\n` +
-    `Subtotal: ${formatBRL(total)}`;
-
-  window.open(
-    `https://wa.me/5551991676515?text=${encodeURIComponent(message)}`,
-    "_blank",
-    "noopener,noreferrer"
-  );
+  closeCrateDrawer();
+  showToast("Redirecionando para o checkout seguro Gira Discos...");
 });
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && crateDrawer.classList.contains("open")) {
-    closeCrateDrawer();
-  }
+document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const feedback = document.getElementById("newsletterFeedback");
+  feedback.textContent = "Inscrição confirmada! Você receberá os próximos lotes por e-mail.";
+  e.target.reset();
 });
 
-updateCrateUI();
+/* Inicialização */
 renderCatalog();
+updateCrateUI(); 
+
+
+/* =================================
+   FUNCIONALIDADES DE ACESSIBILIDADE
+================================= */
+
+const accessibilityBtn = document.getElementById("accessibilityBtn");
+const accessibilityPanel = document.getElementById("accessibilityPanel");
+
+const increaseFont = document.getElementById("increaseFont");
+const decreaseFont = document.getElementById("decreaseFont");
+const contrastBtn = document.getElementById("contrastBtn");
+const underlineBtn = document.getElementById("underlineBtn");
+const resetAccessibility = document.getElementById("resetAccessibility");
+
+let fontSize = 90;
+
+// Abrir e fechar painel
+accessibilityBtn.addEventListener("click", () => {
+
+    const isOpen = !accessibilityPanel.hidden;
+
+    accessibilityPanel.hidden = isOpen;
+
+    accessibilityBtn.setAttribute(
+        "aria-expanded",
+        String(!isOpen)
+    );
+
+});
+
+// Aumentar fonte
+increaseFont.addEventListener("click", () => {
+
+    if (fontSize < 140) {
+        fontSize += 10;
+
+        document.documentElement.style.fontSize =
+            fontSize + "%";
+    }
+
+});
+
+// Diminuir fonte
+decreaseFont.addEventListener("click", () => {
+
+    if (fontSize > 80) {
+        fontSize -= 10;
+
+        document.documentElement.style.fontSize =
+            fontSize + "%";
+    }
+
+});
+
+// Ativar alto contraste
+contrastBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("alto-contraste");
+
+});
+
+// Sublinhar links
+underlineBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("links-sublinhados");
+
+});
+
+// Restaurar configurações
+resetAccessibility.addEventListener("click", () => {
+
+    fontSize = 90;
+
+    document.documentElement.style.fontSize = "";
+
+    document.body.classList.remove("alto-contraste");
+
+    document.body.classList.remove("links-sublinhados");
+
+});
